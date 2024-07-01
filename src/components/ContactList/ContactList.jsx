@@ -1,23 +1,28 @@
+import React, { Component } from 'react';
 import { ContactListItem } from 'components/ContactListItem/ContactListItem';
 import PropTypes from 'prop-types';
+import css from './ContactList.module.css';
 
-export const ContactList = ({ filterContact, deleteContact }) => {
-  const filteredContacts = filterContact();
+export class ContactList extends Component {
+  static propTypes = {
+    filterContact: PropTypes.func.isRequired,
+    deleteContact: PropTypes.func.isRequired,
+  };
 
-  return (
-    <ul>
-      {filteredContacts.map(filteredContact => (
-        <ContactListItem
-          key={filteredContact.id}
-          filteredContact={filteredContact}
-          deleteContact={deleteContact}
-        />
-      ))}
-    </ul>
-  );
-};
+  render() {
+    const { filterContact, deleteContact } = this.props;
+    const filteredContacts = filterContact();
 
-ContactList.propTypes = {
-  filterContact: PropTypes.func.isRequired,
-  deleteContact: PropTypes.func.isRequired,
-};
+    return (
+      <ul className={css.ulBox}>
+        {filteredContacts.map(filteredContact => (
+          <ContactListItem
+            key={filteredContact.id}
+            filteredContact={filteredContact}
+            deleteContact={deleteContact}
+          />
+        ))}
+      </ul>
+    );
+  }
+}

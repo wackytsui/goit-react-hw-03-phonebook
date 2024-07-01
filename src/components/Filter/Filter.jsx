@@ -1,27 +1,31 @@
+import React, { Component } from 'react';
 import css from './Filter.module.css';
 import PropTypes from 'prop-types';
 
-export const Filter = ({ filter, setFilter }) => {
-  //filter name based on the the search keyword
-  const handleFilterChange = e => {
-    setFilter(e.target.value);
+export class Filter extends Component {
+  static propTypes = {
+    filter: PropTypes.string.isRequired,
+    setFilter: PropTypes.func.isRequired,
   };
 
-  return (
-    <div className={css.container}>
-      <p>Find Contacts by Name</p>
-      <input
-        type="text"
-        name="filter"
-        placeholder="Search by name"
-        value={filter}
-        onChange={handleFilterChange}
-      />
-    </div>
-  );
-};
+  handleFilterChange = e => {
+    this.props.setFilter(e.target.value);
+  };
 
-Filter.propTypes = {
-  filter: PropTypes.string.isRequired,
-  setFilter: PropTypes.func.isRequired,
-};
+  render() {
+    const { filter } = this.props;
+
+    return (
+      <div className={css.divFilter}>
+        <p>Find Contacts by Name</p>
+        <input
+          type="text"
+          name="filter"
+          placeholder="Search by name"
+          value={filter}
+          onChange={this.handleFilterChange}
+        />
+      </div>
+    );
+  }
+}

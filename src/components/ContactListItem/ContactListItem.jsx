@@ -1,22 +1,34 @@
+import React, { Component } from 'react';
 import css from './ContactListItem.module.css';
 import PropTypes from 'prop-types';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-export const ContactListItem = ({ filteredContact, deleteContact }) => {
-  // handleDelete method
-  const handleDelete = () => {
-    deleteContact(filteredContact.id);
+export class ContactListItem extends Component {
+  static propTypes = {
+    filteredContact: PropTypes.object.isRequired,
+    deleteContact: PropTypes.func.isRequired,
   };
 
-  return (
-    <li className={css.contactListItem}>
-      <p>{filteredContact.name}:</p>
-      <p>{filteredContact.number}</p>
-      <button onClick={handleDelete}>Delete</button>
-    </li>
-  );
-};
+  handleDelete = () => {
+    const { filteredContact, deleteContact } = this.props;
+    deleteContact(filteredContact.id);
+    Notify.success(
+      `${filteredContact.name} was successfully deleted from your contacts!`,
+      { position: 'center-top' }
+    );
+  };
 
-ContactListItem.propTypes = {
-  filteredContact: PropTypes.object.isRequired,
-  deleteContact: PropTypes.func.isRequired,
-};
+  render() {
+    const { filteredContact } = this.props;
+
+    return (
+      <li className={css.contactListItem}>
+        <p>{filteredContact.name}:</p>
+        <p className={css.contactAlign}>{filteredContact.number}</p>
+        <button className={css.btnDelete} onClick={this.handleDelete}>
+          Delete
+        </button>
+      </li>
+    );
+  }
+}
