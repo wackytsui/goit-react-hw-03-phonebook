@@ -23,7 +23,7 @@
 
 .btnSubmit {
     padding: 15px 25px;
-    background-color: #fface4;
+    background-color: #4620f1;
     color: #fff;
     border: none;
     border-radius: 20px;
@@ -33,6 +33,6 @@
 }
 
 .btnSubmit:hover {
-    background-color: #fca4b7;
+    background-color: #4620f1;
     transform: scale(1.05);
 }
